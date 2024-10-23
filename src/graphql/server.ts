@@ -4,8 +4,6 @@ import {
   gql,
 } from 'apollo-server-express';
 
-const WebSocket = require('ws');
-
 import * as models from './models';
 import * as mutations from './mutations';
 import * as queries from './queries';
