@@ -27,6 +27,7 @@ model Category {
 model Product {
   id          Int      @id @default(autoincrement())
   name        String
+  status      StatusEnum @default(active)
   description String
   price       Float
   stock       Int
@@ -34,4 +35,9 @@ model Product {
   updatedAt   DateTime @updatedAt
   categoryId  String
   category    Category @relation(fields: [categoryId], references: [id])
+}
+
+enum StatusEnum {
+  active
+  inactive
 }
