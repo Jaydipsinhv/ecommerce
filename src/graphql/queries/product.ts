@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express';
 const product = {
   typeDefs: gql`
     extend type Query {
-      getProducts(id: ID!): Product! @auth
+      getProducts(id: ID!): Product!
     }
   `,
 
