@@ -8,7 +8,7 @@ import * as models from './models';
 import * as mutations from './mutations';
 import * as queries from './queries';
 import * as scalars from './scalars';
-import * as subscriptions from './subscriptions';
+//import * as subscriptions from './subscriptions';
 
 const typeDefs = gql`
 
@@ -19,8 +19,6 @@ const typeDefs = gql`
   type Query ${queries.typeDefs}
 
   type Mutation ${mutations.typeDefs}
-
-  type Subscription ${subscriptions.typeDefs}
 `;
 
 const resolvers = {
@@ -30,7 +28,6 @@ const resolvers = {
 
   Query: { ...queries.resolvers },
   Mutation: { ...mutations.resolvers },
-  Subscription: { ...subscriptions.resolvers },
 };
 
 // @ts-ignore
