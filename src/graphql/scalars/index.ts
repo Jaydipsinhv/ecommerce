@@ -1,8 +1,14 @@
 import { gql } from 'apollo-server-express';
 
-const scalars: { [key: string]: any } = {};
+import { DateType } from './Date';
 
-const typeDefs = gql``;
+const scalars: { [key: string]: any } = {
+  Date: DateType,
+};
+
+const typeDefs = gql`
+  ${DateType.typeDefs}
+`;
 
 const resolvers = {};
 for (const key in scalars) {

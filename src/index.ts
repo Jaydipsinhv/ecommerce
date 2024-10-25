@@ -1,18 +1,34 @@
-import express from 'express';
-import { graphqlHTTP } from 'express-graphql';
-import { schema } from './schemas';
+import { once } from 'events';
+import http from 'http';
+import { createServer as CreateGraphQLServer } from './graphql/server';
+import { app } from './http-server';
+import { prisma } from './utils/prisma';
 
-const app = express();
-const PORT = process.env.PORT || 4000;
+console.log('process.env:', process.env);
 
-app.use(
-  '/graphql',
-  graphqlHTTP({
-    schema,
-    graphiql: true,
-  })
-);
+async function setup() {
+  await Promise.all([
+    // connect sql
+    prisma
+      .$connect()
+      .then(() => console.log('prisma connected')),
+  ]);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}/graphql`);
-});
+  const PORT = process.env.HTTP_PORT || 4000;
+
+  const server = http.createServer(app);
+  server.listen(PORT);
+
+  const graphqlServer = CreateGraphQLServer(server);
+  await graphqlServer.start();
+
+  //graphqlServer.applyMiddleware({ app });
+
+
+  await once(server, 'listening');
+  console.log(`server listening on ${PORT}`);
+
+  return server;
+}
+
+export { setup };
