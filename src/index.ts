@@ -15,15 +15,13 @@ async function setup() {
   ]);
 
   const PORT = process.env.HTTP_PORT || 4000;
-
   const server = http.createServer(app);
-  server.listen(PORT);
 
   const graphqlServer = CreateGraphQLServer(server);
   await graphqlServer.start();
 
-  //graphqlServer.applyMiddleware({ app });
-
+  graphqlServer.applyMiddleware({ app: app as any, path: '/graphql' });
+  server.listen(PORT);
 
   await once(server, 'listening');
   console.log(`server listening on ${PORT}`);
