@@ -33,6 +33,7 @@ const resolvers = {
 // @ts-ignore
 function context({ req }) {
   const { user } = req ?? {};
+  console.log('user:', user);
   return {
     user,
     req,
@@ -57,6 +58,7 @@ function createServer(httpServer: any) {
     // check for active maintenance windows
     app.use(async (req, res, next) => {
       // all request will be passed through this middleware
+      console.log('here to handle common middleware');
       next();
     });
     // @ts-ignore
