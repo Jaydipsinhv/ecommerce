@@ -4,8 +4,9 @@ const ProductType = {
   typeDefs: gql`
     type Product {
       id: ID!
+      name: String!
 
-      status: ProductStatus!
+      status: ProductStatus
       description: String
       price: Float
       stock: Int
